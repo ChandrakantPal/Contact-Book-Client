@@ -4,12 +4,18 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+import ApolloProvider from './ApolloProvider'
+import { AuthProvider } from './context/Auth'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <ApolloProvider>
+      <AuthProvider>
+        <Router>
+          <App />
+        </Router>
+      </AuthProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
