@@ -3,7 +3,7 @@ interface ContactProps {
   contactemail: string
   id: string
   editContact?: (contactname: string, contactemail: string, id: string) => void
-  deleteContact?: (id: string) => void
+  deleteContact?: (contactId: string) => void
 }
 
 const Contact: React.FC<ContactProps> = ({
