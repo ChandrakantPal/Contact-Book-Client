@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ApolloProvider from './ApolloProvider'
+import { Route, Switch } from 'react-router'
+import Home from './pages/Home'
+import Register from './pages/Register'
+import Signin from './pages/Signin'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ApolloProvider>
+      <Switch>
+        <Route path="/register" component={Register} />
+        <Route path="/signin" component={Signin} />
+        <Route path="/" exact component={Home} />
+      </Switch>
+    </ApolloProvider>
+  )
 }
 
-export default App;
+export default App
