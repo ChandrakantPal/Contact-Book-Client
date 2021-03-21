@@ -94,7 +94,10 @@ const Home = () => {
 
   if (loading) return <h1 className="text-center">Loading...</h1>
 
-  if (error) return <Redirect to="/signin" />
+  if (error) {
+    localStorage.removeItem('token')
+    return <Redirect to="/signin" />
+  }
 
   if (!authenticated) {
     return <Redirect to="/signin" />

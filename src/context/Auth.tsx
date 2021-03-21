@@ -12,23 +12,26 @@ interface Action {
   payload: any
 }
 
-const initialState: State = {
+// const initialState: State = {
+//   user: null,
+//   authenticated: false,
+// }
+
+// if (localStorage.getItem('token')) {
+//   const decodeToken: any = jwtDecode(localStorage.getItem('token'))
+
+//   if (decodeToken.exp * 1000 < Date.now()) {
+//     localStorage.removeItem('token')
+//   } else {
+//     initialState.user = decodeToken
+//     initialState.authenticated = true
+//   }
+// }
+
+const StateContext = createContext<State>({
   user: null,
   authenticated: false,
-}
-
-if (localStorage.getItem('token')) {
-  const decodeToken: any = jwtDecode(localStorage.getItem('token'))
-
-  if (decodeToken.exp * 1000 < Date.now()) {
-    localStorage.removeItem('token')
-  } else {
-    initialState.user = decodeToken
-    initialState.authenticated = true
-  }
-}
-
-const StateContext = createContext<State>(initialState)
+})
 
 const DispatchContext = createContext(null)
 
@@ -63,11 +66,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   })
 
   useEffect(() => {
-    const decodeToken: any = jwtDecode(localStorage.getItem('token'))
-    if (decodeToken.exp * 1000 < Date.now()) {
-      localStorage.removeItem('token')
-      dispatch('LOGOUT')
-    } else {
+    // const decodeToken: any = jwtDecode(localStorage.getItem('token'))
+    // console.log(decodeToken)
+
+    // if (decodeToken.exp * 1000 < Date.now()) {
+    //   localStorage.removeItem('token')
+    //   dispatch('LOGOUT')
+    // } else
+    if (localStorage.getItem('token')) {
       dispatch('AUTH_CHECK')
     }
   }, [])
