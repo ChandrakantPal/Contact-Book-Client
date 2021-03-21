@@ -15,8 +15,8 @@ const Contact: React.FC<ContactProps> = ({
 }) => {
   return (
     <div className="flex items-center justify-between w-full px-4 py-2 border rounded hover:bg-gray-200">
-      <div className="flex items-center justify-between justify-">
-        <div className="w-10 h-10 py-2 text-center bg-gray-300 border rounded-full">
+      <div className="flex items-center justify-between">
+        <div className="w-10 h-10 py-2 text-center text-white bg-blue-500 border rounded-full">
           {contactname.split('')[0].toLocaleUpperCase()}
         </div>
         <p className="ml-4 text-gray-700 capitalize">{contactname}</p>
