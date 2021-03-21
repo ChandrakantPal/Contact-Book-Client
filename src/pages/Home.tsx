@@ -152,7 +152,7 @@ const Home = () => {
                       error={errors}
                     />
                     <InputGroup
-                      type="text"
+                      type="email"
                       value={email}
                       placeholder="Contact Email"
                       setValue={setEmail}
@@ -205,7 +205,7 @@ const Home = () => {
                       error={errors}
                     />
                     <InputGroup
-                      type="text"
+                      type="email"
                       value={email}
                       placeholder="Contact Email"
                       setValue={setEmail}
