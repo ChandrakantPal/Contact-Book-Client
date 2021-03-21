@@ -31,9 +31,10 @@ const Navbar: React.FC = () => {
       return
     }
     searchSubs()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchfield])
 
-  const [searchContact, { loading }] = useLazyQuery(SEARCH_CONTACTS, {
+  const [searchContact] = useLazyQuery(SEARCH_CONTACTS, {
     onError: (err) => {
       setError(err.graphQLErrors[0].message)
     },

@@ -16,7 +16,7 @@ const Signin = () => {
   const dispatch = useAuthDispatch()
   const { authenticated } = useAuthState()
 
-  const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
+  const [loginUser] = useLazyQuery(LOGIN_USER, {
     onError: (err) => {
       setErrors(err.graphQLErrors[0].extensions.errors)
     },

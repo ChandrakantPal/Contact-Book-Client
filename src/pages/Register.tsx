@@ -18,7 +18,7 @@ const Register = () => {
   const dispatch = useAuthDispatch()
   const { authenticated } = useAuthState()
 
-  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+  const [registerUser] = useMutation(REGISTER_USER, {
     update: (_, { data: { register: userData } }) => {
       localStorage.setItem('token', userData.token)
       dispatch('LOGIN', userData)
