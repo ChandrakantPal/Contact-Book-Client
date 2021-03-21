@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { User } from '../types'
 
@@ -11,10 +12,23 @@ interface Action {
   payload: any
 }
 
-const StateContext = createContext<State>({
-  authenticated: false,
+const initialState: State = {
   user: null,
-})
+  authenticated: false,
+}
+
+if (localStorage.getItem('token')) {
+  const decodeToken: any = jwtDecode(localStorage.getItem('token'))
+
+  if (decodeToken.exp * 1000 < Date.now()) {
+    localStorage.removeItem('token')
+  } else {
+    initialState.user = decodeToken
+    initialState.authenticated = true
+  }
+}
+
+const StateContext = createContext<State>(initialState)
 
 const DispatchContext = createContext(null)
 
@@ -49,8 +63,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   })
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
+    const decodeToken: any = jwtDecode(localStorage.getItem('token'))
+    if (decodeToken.exp * 1000 < Date.now()) {
+      localStorage.removeItem('token')
+      dispatch('LOGOUT')
+    } else {
       dispatch('AUTH_CHECK')
     }
   }, [])
