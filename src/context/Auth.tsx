@@ -1,5 +1,5 @@
 import jwt_decode, { JwtPayload } from 'jwt-decode'
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import { createContext, useContext, useReducer } from 'react'
 import { User } from '../types'
 
 interface State {
