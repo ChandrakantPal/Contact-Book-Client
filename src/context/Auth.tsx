@@ -44,6 +44,7 @@ const authReducer = (state: State, { type, payload }: Action) => {
         user: payload,
       }
     case 'LOGOUT':
+      localStorage.removeItem('token')
       return {
         ...state,
         authenticated: false,
@@ -60,10 +61,7 @@ const authReducer = (state: State, { type, payload }: Action) => {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, defaultDispatch] = useReducer(authReducer, {
-    user: null,
-    authenticated: false,
-  })
+  const [state, defaultDispatch] = useReducer(authReducer, initialState)
 
   useEffect(() => {
     const decodeToken = jwt_decode<JwtPayload>(localStorage.getItem('token'))
