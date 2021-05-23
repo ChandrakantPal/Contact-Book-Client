@@ -1,4 +1,4 @@
-// import jwtDecode from 'jwt-decode'
+import jwt_decode, { JwtPayload } from 'jwt-decode'
 import { createContext, useContext, useEffect, useReducer } from 'react'
 import { User } from '../types'
 
@@ -12,21 +12,21 @@ interface Action {
   payload: any
 }
 
-// const initialState: State = {
-//   user: null,
-//   authenticated: false,
-// }
+const initialState: State = {
+  user: null,
+  authenticated: false,
+}
+const token = localStorage.getItem('token')
+if (token) {
+  const decodeToken = jwt_decode<JwtPayload>(token)
 
-// if (localStorage.getItem('token')) {
-//   const decodeToken: any = jwtDecode(localStorage.getItem('token'))
-
-//   if (decodeToken.exp * 1000 < Date.now()) {
-//     localStorage.removeItem('token')
-//   } else {
-//     initialState.user = decodeToken
-//     initialState.authenticated = true
-//   }
-// }
+  if (decodeToken.exp * 1000 < Date.now()) {
+    localStorage.removeItem('token')
+  } else {
+    initialState.user = decodeToken as User
+    initialState.authenticated = true
+  }
+} else console.log('no token found')
 
 const StateContext = createContext<State>({
   user: null,
@@ -65,18 +65,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     authenticated: false,
   })
 
-  useEffect(() => {
-    // const decodeToken: any = jwtDecode(localStorage.getItem('token'))
-    // console.log(decodeToken)
+  // useEffect(() => {
+  //   // const decodeToken: any = jwtDecode(localStorage.getItem('token'))
+  //   // console.log(decodeToken)
 
-    // if (decodeToken.exp * 1000 < Date.now()) {
-    //   localStorage.removeItem('token')
-    //   dispatch('LOGOUT')
-    // } else
-    if (localStorage.getItem('token')) {
-      dispatch('AUTH_CHECK')
-    }
-  }, [])
+  //   // if (decodeToken.exp * 1000 < Date.now()) {
+  //   //   localStorage.removeItem('token')
+  //   //   dispatch('LOGOUT')
+  //   // } else
+  //   if (localStorage.getItem('token')) {
+  //     dispatch('AUTH_CHECK')
+  //   }
+  // }, [])
 
   const dispatch = (type: string, payload?: any) =>
     defaultDispatch({ type, payload })
